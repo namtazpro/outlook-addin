@@ -1,0 +1,46 @@
+### InsertContent — local function host
+### Requires the VS Code "REST Client" extension (humao.rest-client).
+### Run: F5 in VS Code (or `func start`) then click "Send Request" above the request below.
+
+@localBaseUrl = http://localhost:7071
+@localFunctionKey =
+
+### Local: send sample payload (no key needed when running locally)
+POST {{localBaseUrl}}/api/InsertContent
+Content-Type: application/json
+
+< ./sample-payload.json
+
+
+### -----------------------------------------------------------------
+### Deployed function — fill in the values below before sending
+### -----------------------------------------------------------------
+@functionAppName = your-func-app
+@functionKey = paste-function-key-here
+@azureBaseUrl = https://{{functionAppName}}.azurewebsites.net
+
+### Deployed: send sample payload using ?code=<function key>
+POST {{azureBaseUrl}}/api/InsertContent?code={{functionKey}}
+Content-Type: application/json
+
+< ./sample-payload.json
+
+
+### Deployed: send sample payload using x-functions-key header
+POST {{azureBaseUrl}}/api/InsertContent
+Content-Type: application/json
+x-functions-key: {{functionKey}}
+
+< ./sample-payload.json
+
+
+### Negative test — empty body (expect 400)
+POST {{localBaseUrl}}/api/InsertContent
+Content-Type: application/json
+
+
+### Negative test — invalid JSON (expect 400)
+POST {{localBaseUrl}}/api/InsertContent
+Content-Type: application/json
+
+{ this is : not valid json

@@ -1,0 +1,35 @@
+{
+  "internetMessageId": "<AS8PR07MB1234ABCDEF.test@AS8PR07MB1234.eurprd07.prod.outlook.com>",
+  "subject": "Q2 Marketing Consents Review",
+  "sentDate": "2026-04-27T08:42:13.000Z",
+  "from": {
+    "name": "Jane Doe",
+    "address": "jane.doe@contoso.com"
+  },
+  "to": [
+    { "name": "Recipient User", "address": "recipient@contoso.com" }
+  ],
+  "cc": [
+    { "name": "Legal Team", "address": "legal@contoso.com" }
+  ],
+  "bodyText": "Hi,\r\n\r\nPlease review the attached consent form and confirm by Friday.\r\n\r\nThanks,\r\nJane",
+  "attachments": [
+    {
+      "id": "AAMkAGI2T-test-001",
+      "name": "consent-form.txt",
+      "size": 47,
+      "contentType": "text/plain",
+      "isInline": false,
+      "contentBase64": "SGVsbG8gZnJvbSB0aGUgY29uc2VudCBmb3JtIGF0dGFjaG1lbnQh"
+    },
+    {
+      "id": "AAMkAGI2T-test-002",
+      "name": "image001.png",
+      "size": 70,
+      "contentType": "image/png",
+      "isInline": true,
+      "contentBase64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Zy+gKkAAAAASUVORK5CYII="
+    }
+  ],
+  "capturedAt": "2026-04-27T10:15:42.187Z"
+}

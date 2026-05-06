@@ -1,0 +1,47 @@
+# ---- Node / Outlook add-in (ContosoConsentsManagement) ----
+node_modules/
+dist/
+build/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Office Add-in dev certs / debugging artifacts
+.office-addin-cache/
+.office-addin-debugging/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# ---- .NET / Azure Functions (func_contosoconsentsmgmt) ----
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.pdb
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+
+# Azure Functions local settings (may contain secrets)
+local.settings.json
+
+# ---- IDE / OS ----
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
