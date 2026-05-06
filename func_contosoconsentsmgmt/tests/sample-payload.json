@@ -20,7 +20,7 @@
       "size": 47,
       "contentType": "text/plain",
       "isInline": false,
-      "contentBase64": "SGVsbG8gZnJvbSB0aGUgY29uc2VudCBmb3JtIGF0dGFjaG1lbnQh"
+      "contentBase64": "[base64 of attachement content here]"
     },
     {
       "id": "AAMkAGI2T-test-002",
@@ -28,7 +28,7 @@
       "size": 70,
       "contentType": "image/png",
       "isInline": true,
-      "contentBase64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Zy+gKkAAAAASUVORK5CYII="
+      "contentBase64": "[base64 of attachement content here]"
     }
   ],
   "capturedAt": "2026-04-27T10:15:42.187Z"

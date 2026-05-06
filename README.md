@@ -84,6 +84,44 @@ endpoint, while the research recommends Entra ID SSO via Nested App Authenticati
 4. The payload is `POST`ed to the Function's `UPLOAD_ENDPOINT_URL`.
 5. `InsertContent` validates the JSON, derives a deterministic blob name, and writes the envelope + attachments to Blob Storage using `BlobContainerSasUrl`.
 
+### What happens when the add-in starts
+
+When the user clicks the ribbon button (or selects an email while the pane is pinned),
+Outlook activates the add-in based on the rules declared in
+[manifest.xml](ContosoConsentsManagement/manifest.xml) (`MessageReadCommandSurface`,
+activation rule `ItemIs ItemType="Message"`):
+
+1. **Host loads the task pane.** Outlook opens the URL declared in the manifest's
+   `SourceLocation` (in dev: `https://localhost:3000/taskpane.html`, served by webpack-dev-server
+   with the certificates produced by `office-addin-dev-certs`). The page bootstraps
+   `Office.js`, then [index.tsx](ContosoConsentsManagement/src/taskpane/index.tsx) waits for
+   `Office.onReady` before rendering the React tree
+   ([App.tsx](ContosoConsentsManagement/src/taskpane/components/App.tsx) →
+   [Header.tsx](ContosoConsentsManagement/src/taskpane/components/Header.tsx) +
+   [SendEmailToBlob.tsx](ContosoConsentsManagement/src/taskpane/components/SendEmailToBlob.tsx)).
+2. **Identity is read locally.** `SendEmailToBlob` reads
+   `Office.context.mailbox.userProfile.emailAddress` synchronously to identify the signed-in
+   Outlook user. No interactive sign-in or token acquisition happens at this stage — the
+   prototype currently relies on the Functions function key for backend auth (this is one of
+   the gaps called out in `research/`).
+3. **Projects are fetched.** A `useEffect` calls
+   [projectsApi.fetchProjects](ContosoConsentsManagement/src/taskpane/projectsApi.ts) with that
+   email. If `PROJECTS_ENDPOINT_URL` is set, it issues a `GET` against the projects API;
+   otherwise it returns `MOCK_PROJECTS` from
+   [config.ts](ContosoConsentsManagement/src/taskpane/config.ts). While the request is in
+   flight the dropdown shows a `Spinner`; on failure a `MessageBar` surfaces the error and the
+   upload button stays disabled.
+4. **Pane becomes interactive.** Once projects resolve, the dropdown is populated and the
+   **Send email to Blob Storage** button enables as soon as a project is selected. The
+   currently-selected message in Outlook is the implicit target — `buildEmailPayload` reads
+   it later from `Office.context.mailbox.item` only when the user clicks Upload, so switching
+   emails simply changes which message will be captured on the next click.
+5. **Ribbon command surface.** The button itself runs through
+   [commands.html](ContosoConsentsManagement/src/commands/commands.html) /
+   [commands.ts](ContosoConsentsManagement/src/commands/commands.ts), which is the
+   `FunctionFile` declared in the manifest. For this prototype it just opens the task pane;
+   no UI-less ribbon action is performed.
+
 ## Getting started
 
 Add-in (from `ContosoConsentsManagement/`):
